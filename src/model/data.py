@@ -17,5 +17,4 @@ class Data:
             with open('data.dat', 'rb') as file:
                 return pickle.load(file)
         except Exception as e:
-            print(str(e))
             return {}

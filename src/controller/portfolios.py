@@ -38,8 +38,7 @@ class Controller:
                 return text
 
     def port_names(self):
-        for name in self.portfolios.keys():
-            yield name
+        return list(self.portfolios.keys())
 
     def valid_port(self, port):
         return port in self.portfolios.keys()
@@ -48,3 +47,7 @@ class Controller:
         for ticker in self.portfolios[port]:
             ticker.updatePrice()
             yield ticker
+        self.data.save(self.portfolios)
+
+    def get_port(self, port):
+        return self.portfolios[port]
