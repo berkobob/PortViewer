@@ -15,6 +15,7 @@ class View:
             print("3 Update portfolio")
             print("4 View portfolio")
             print("5 Select portfolio")
+            print("6 Delete portfolio")
             choice = input(": ")
         
             if choice[0] == '0':
@@ -27,8 +28,8 @@ class View:
 
             elif choice[0] == '2':
                 print("Listing portfolios:")
-                for port in self.controller.port_names():
-                    print(port)
+                for port_name in self.controller.port_names():
+                    print(port_name)
 
             elif choice[0] == '3':
                 if port:
@@ -50,6 +51,13 @@ class View:
                 except:
                     print("Invalid selection. Selected portfolio is", port)
 
+            elif choice[0] == '6':
+                if port:
+                    if input("Enter YES to confirm: ") == 'YES':
+                        self.controller.delete(port)
+                        for port_name in self.controller.port_names():
+                            print(port_name)
+                        port=None
 
     def load_portfolio(self):
         file = input("File name: ")

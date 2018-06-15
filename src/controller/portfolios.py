@@ -51,3 +51,7 @@ class Controller:
 
     def get_port(self, port):
         return self.portfolios[port]
+
+    def delete(self, port):
+        del self.portfolios[port]
+        self.data.save(self.portfolios)
