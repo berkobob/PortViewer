@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content%}
+    <h1>Portfolios</h1>
+    {% for port in ports %}
+    <a href="{{ port }}">{{ port }}</a>
+    {% endfor%}
+{% endblock%}
