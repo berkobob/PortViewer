@@ -20,10 +20,10 @@ if __name__ == '__main__':
             print("Desktop mode not yet implemented")
         elif mode == 'w':
             print("Web mode not yet implemented")
-            from src.view.app import startWebView
+            from view.app import startWebView
             startWebView(Controller(Data()))
         elif mode == 'c':
-            from src.view.commandline import View
+            from view.commandline import View
             View(Controller(Data()))
         else:
             print("The valid modes are Command line (c), Web (w) or Desktop (d)")

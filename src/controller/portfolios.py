@@ -1,8 +1,8 @@
 """ Controller """
 
 import os
-import src.controller.constants as constants
-from src.controller.ticker import Ticker
+import controller.constants as constants
+from controller.ticker import Ticker
 
 class Controller:
 
