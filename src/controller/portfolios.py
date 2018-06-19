@@ -2,7 +2,7 @@
 
 import os
 import controller.constants as constants
-from controller.ticker import Ticker
+from .ticker import Ticker
 
 class Controller:
 
@@ -11,11 +11,8 @@ class Controller:
         self.portfolios = self.data.load()
 
     def load_portfolio(self, port):
-        if port in self.portfolios.keys():
-            print("Portfolio {} found".format(port))
-        else:
-            print("Creating portfolio", port)
-            self.portfolios[port] = []
+
+        self.portfolios[port] = []
 
         path = constants.DATAPATH+port+'.csv'
         try:
@@ -30,8 +27,6 @@ class Controller:
                 self.data.save(self.portfolios)
                 return self.portfolios[port]
 
-        except IOError:
-                return os.listdir(constants.DATAPATH)
         except Exception as e:
                 text = ["Error report:"]
                 text.append(str(e))
@@ -43,10 +38,15 @@ class Controller:
     def valid_port(self, port):
         return port in self.portfolios.keys()
 
-    def update(self, port):
+    def realtime_update(self, port):
         for ticker in self.portfolios[port]:
             ticker.updatePrice()
             yield ticker
+        self.data.save(self.portfolios)
+
+    def update(self, port):
+        for ticker in self.portfolios[port]:
+            ticker.updatePrice()
         self.data.save(self.portfolios)
 
     def get_port(self, port):

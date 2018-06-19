@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content%}
-    <h1>Portfolios</h1>
-    {% for port in ports %}
-    <a href="{{ port }}">{{ port }}</a>
-    {% endfor%}
+    <div class="w3-responsive">
+            {% for ticker in tickers %}
+            <tr>
+                <th>{{ ticker.to_dict()['ticker'] }}</th>
+                <th>{{ ticker.to_dict()['shares'] }}</th>
+                <th>{{ '£%.2f'|format(ticker.to_dict()['price']) }}</th>
+                <th>{{ ticker.to_dict()['last'] }}</th>
+                <th>{{ ticker.to_dict()['delta'] }}</th>
+                <th>{{ ticker.to_dict()['percent'] }}%</th>
+                <th>{{ ticker.to_dict()['stamp'] }}</th>
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
 {% endblock%}

@@ -1,26 +1,34 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 contoller = None
 
 def startWebView(new_controller):
     global controller
-    controller=new_controller
+    controller = new_controller
     app.run(debug=True)
 
 @app.route('/')
-def hello_method():
+@app.route('/<port>/', methods=['GET', 'POST'])
+def hello_method(port=None):
     global controller
-    ports=controller.port_names()
-    return render_template('home.html', ports=ports)
 
-@app.route('/<port>/')
-def view_port(port):
-    global controller
-    tickers=controller.get_port(port)
-    return render_template('portfolio.html',port=port, tickers=tickers)
+    if request.method == "POST":
+        controller.update(port)
+
+    tickers=[]
+    ports = controller.port_names()
+    if port:
+        tickers=controller.get_port(port)
+        
+    return render_template('home.html', ports=ports, tickers=tickers)
 
 if __name__ == '__main__':
-    from src.controller.portfolios import Controller
+    import sys
+    sys.path.append('c:\\Users\\aleve\\Documents\\src\\PortViewer\\src\\controller')
+    for path in sys.path:
+        print(path)
+    from controller.portfolios import Controller
     from src.model.data import Data
     startWebView(Controller(Data()))
+    

@@ -17,7 +17,7 @@ class Ticker(object):
 
     def to_dict(self):
         return {'ticker': self.ticker, 'shares': self.shares, 'price': self.price,
-                'last': self.last, 'delta': self.delta, 'percent': self.percent}
+                'last': self.last, 'delta': self.delta, 'percent': self.percent, 'stamp':self.stamp}
 
     def __repr__(self):
         return "{} {:>6} is at £{:<10.2f} It's moved £{: 7.2f} which is {: 5.2f}%. We have {:5d} shares at £{: 6.2f} each".format(

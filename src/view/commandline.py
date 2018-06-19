@@ -1,3 +1,5 @@
+import os
+
 class View:
 
     def __init__(self, controller):
@@ -23,18 +25,16 @@ class View:
                 break
 
             elif choice[0] == '1':
-                print("OK, loading new portfolio")
                 self.load_portfolio()
 
             elif choice[0] == '2':
-                print("Listing portfolios:")
                 for port_name in self.controller.port_names():
                     print(port_name)
 
             elif choice[0] == '3':
                 if port:
                     print("Getting prices. Please wait...")
-                    for ticker in self.controller.update(port):
+                    for ticker in self.controller.realtime_update(port):
                         print(ticker)
 
             elif choice[0] == '4':
@@ -60,6 +60,12 @@ class View:
                         port=None
 
     def load_portfolio(self):
-        file = input("File name: ")
-        for text in self.controller.load_portfolio(file):
+        files = os.listdir("data/")
+
+        for i in range(0, len(files)):
+            files[i] = os.path.splitext(files[i])[0]
+            print(i, files[i])
+
+        file = int(input("Which file: "))
+        for text in self.controller.load_portfolio(files[file]):
             print(text)

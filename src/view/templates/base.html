@@ -2,11 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <title>Portfolio Viewer</title>
+    <div class="w3-bar w3-border w3-light-grey">
+        {% for port in ports %}
+            <a href="{{ url_for('hello_method',port=port) }}" class="w3-bar-item w3-button">{{ port }}</a> 
+            <!-- <button class="w3-bar-item w3-button name={{ port }}">{{ port }}</button> -->
+        {% endfor%}
+        <form>
+            <button name="update" type="submit" formmethod="POST" class="w3-bar-item w3-button w3-right" href="{{ url_for('hello_method',port=port) }}">UPDATE</button>
+        </form>
+    </div>
+    <table class="w3-table-all">
+        <tr>
+            <th>TICKER</th>
+            <th>SHARES</th>
+            <th>PRICE</th>
+            <th>LAST</th>
+            <th>CHANGE</th>
+            <th>%</th>
+            <th>TIME</th>
+        </tr>
 </head>
 <body>
+
 {% block content %}
 
 {% endblock%}
+<script>
+    window.onscroll = function() {myFunction()};
+    
+    var navbar = document.getElementById("navbar");
+    var sticky = navbar.offsetTop;
+    
+    function myFunction() {
+      if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+      } else {
+        navbar.classList.remove("sticky");
+      }
+    }
+    </script>
 </body>
 </html>
