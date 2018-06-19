@@ -13,7 +13,7 @@ def startWebView(new_controller):
 def hello_method(port=None):
     global controller
 
-    if request.method == "POST":
+    if 'update' in request.form.keys():
         controller.update(port)
 
     tickers=[]

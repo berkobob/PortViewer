@@ -4,12 +4,12 @@
             {% for ticker in tickers %}
             <tr>
                 <th>{{ ticker.to_dict()['ticker'] }}</th>
-                <th>{{ ticker.to_dict()['shares'] }}</th>
-                <th>{{ '£%.2f'|format(ticker.to_dict()['price']) }}</th>
-                <th>{{ ticker.to_dict()['last'] }}</th>
-                <th>{{ ticker.to_dict()['delta'] }}</th>
-                <th>{{ ticker.to_dict()['percent'] }}%</th>
-                <th>{{ ticker.to_dict()['stamp'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['shares'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['price'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['last'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['delta'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['percent'] }}</th>
+                <th class="w3-right-align">{{ ticker.to_dict()['stamp'] }}</th>
             </tr>
             {% endfor%}
         </table>
