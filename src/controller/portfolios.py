@@ -2,7 +2,7 @@
 
 import os
 import controller.constants as constants
-from .ticker import Ticker
+from controller.ticker import Ticker
 
 class Controller:
 
@@ -55,3 +55,19 @@ class Controller:
     def delete(self, port):
         del self.portfolios[port]
         self.data.save(self.portfolios)
+
+    def sort(self, port, col, asc):
+        if col == "name":
+            self.portfolios[port].sort(key=lambda x: x.name, reverse=asc)
+        elif col == "shares":
+            self.portfolios[port].sort(key=lambda x: x.shares, reverse=asc)
+        elif col == "price":
+            self.portfolios[port].sort(key=lambda x: x.price, reverse=asc)
+        elif col == "last":
+            self.portfolios[port].sort(key=lambda x: x.last, reverse=asc)
+        elif col == "delta":
+            self.portfolios[port].sort(key=lambda x: x.delta, reverse=asc)
+        elif col == "percent":
+            self.portfolios[port].sort(key=lambda x: x.percent, reverse=asc)
+
+        return self.portfolios[port]

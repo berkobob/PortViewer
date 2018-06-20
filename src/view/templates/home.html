@@ -1,17 +1,21 @@
-{% extends "base.html" %}
-{% block content%}
-    <div class="w3-responsive">
-            {% for ticker in tickers %}
-            <tr>
-                <th>{{ ticker.to_dict()['ticker'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['shares'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['price'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['last'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['delta'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['percent'] }}</th>
-                <th class="w3-right-align">{{ ticker.to_dict()['stamp'] }}</th>
-            </tr>
-            {% endfor%}
-        </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/static/css/mystyle.css"> 
+    <title>Portfolio Viewer</title>
+    <div class="w3-bar w3-border w3-light-grey">
+        {% for port in ports %}
+            <a href="/{{port}}" class="w3-bar-item w3-button w3-mobile w3-hide-small">{{ port }}</a> 
+        {% endfor%}
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction()">&#9776;</a>
     </div>
-{% endblock%}
+    <div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+        {% for port in ports %}
+            <a href="/{{port}}" class="w3-bar-item w3-button w3-mobile">{{ port }}</a> 
+        {% endfor%}
+    </div>
+</head>

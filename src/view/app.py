@@ -2,26 +2,36 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 contoller = None
+ascending = True
 
 def startWebView(new_controller):
     global controller
     controller = new_controller
-    app.run(debug=True)
+    app.run('0.0.0.0', port=80, debug=True)
 
 @app.route('/')
-@app.route('/<port>/', methods=['GET', 'POST'])
-def hello_method(port=None):
+def home():
+    return render_template('home.html', ports=controller.port_names())
+
+@app.route('/<port>/')
+def port_view(port):
     global controller
-
-    if 'update' in request.form.keys():
-        controller.update(port)
-
-    tickers=[]
     ports = controller.port_names()
-    if port:
-        tickers=controller.get_port(port)
-        
-    return render_template('home.html', ports=ports, tickers=tickers)
+    tickers=controller.get_port(port)
+    return render_template('port.html', ports=ports, tickers=tickers, page=port)
+
+@app.route('/<col>/<port>/')
+def sort(col, port):
+    global ascending
+    ports = controller.port_names()
+    tickers = controller.sort(port, col, ascending)
+    ascending = not ascending
+    return render_template('port.html', ports=ports, tickers=tickers, page=port)
+
+@app.route('/update/<port>/')
+def update(port):
+    controller.update(port)
+    return render_template('port.html', ports=controller.port_names(), tickers=controller.get_port(port), page=port)
 
 if __name__ == '__main__':
     import sys
