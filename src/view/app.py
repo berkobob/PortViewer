@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,url_for, redirect
 
 app = Flask(__name__)
 contoller = None
@@ -9,8 +9,10 @@ def startWebView(new_controller):
     controller = new_controller
     app.run('0.0.0.0', port=80, debug=True)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    if request.method == "POST":
+        controller.new_port(request.form['name'])
     return render_template('home.html', ports=controller.port_names())
 
 @app.route('/<port>/')
@@ -23,15 +25,19 @@ def port_view(port):
 @app.route('/<col>/<port>/')
 def sort(col, port):
     global ascending
-    ports = controller.port_names()
     tickers = controller.sort(port, col, ascending)
     ascending = not ascending
-    return render_template('port.html', ports=ports, tickers=tickers, page=port)
+    return redirect('/'+port)
 
 @app.route('/update/<port>/')
 def update(port):
     controller.update(port)
-    return render_template('port.html', ports=controller.port_names(), tickers=controller.get_port(port), page=port)
+    return redirect('/'+port)
+
+@app.route('/add/<port>', methods=['POST'])
+def add_ticker(port):
+    controller.add_ticker(port, list(request.form.values()))
+    return redirect('/'+port)
 
 if __name__ == '__main__':
     import sys

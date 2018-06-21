@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="/static/css/mystyle.css"> 
-    <title>Portfolio Viewer</title>
-    <div class="w3-bar w3-border w3-light-grey">
-        {% for port in ports %}
-            <a href="/{{port}}" class="w3-bar-item w3-button w3-mobile w3-hide-small">{{ port }}</a> 
-        {% endfor%}
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction()">&#9776;</a>
+{% extends "base.html" %}
+{% block head1 %}
+<div class="w3-right">
+        <button onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button w3-mobile w3-hide-small">NEW</button>
+</div>
+{% endblock %}
+{% block head2 %}
+<button onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button w3-mobile">NEW</button>
+{% endblock %}
+
+{% block main %}
+{% for each in ports %}
+    <li class="w3-ul">{{ each }}            </li>
+{% endfor%}
+
+
+<div id="id02" class="w3-modal">
+    <div class="w3-modal-content w3-card-4">
+        <header class="w3-container"> 
+            <h2>Create new portfolio</h2>
+        </header>
+        <form action="/" method="post" class="w3-container">
+            <label>Name:</label>
+            <input class="w3-input w3-border" type="text" id="name" name="name"> 
+            <br>
+            <div class="w3-container">
+                <button class="w3-button w3-hover-green w3-round-large" type="submit" onclick="document.getElementById('id02').style.display='none'">Submit</button>
+                <button class="w3-button w3-hover-red w3-round-large" type="button" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
+            </div>
+        </form>
     </div>
-    <div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
-        {% for port in ports %}
-            <a href="/{{port}}" class="w3-bar-item w3-button w3-mobile">{{ port }}</a> 
-        {% endfor%}
-    </div>
-</head>
+</div>
+{% endblock %}

@@ -12,6 +12,7 @@ class Ticker(object):
         self.price = float(data[2])
         self.exchange = data[3]
         self.last = 0.0
+
         self.delta = 0.0
         self.percent = 0.0
         self.stamp = "NO DATA"
@@ -48,7 +49,6 @@ class Ticker(object):
             last = price.get_text()
             last = last.replace(',','')
             self.last = float(last)
-            self.last = 0
             if self.exchange == "LSE":
                 self.last = self.last / 100 
         except:
@@ -67,7 +67,6 @@ class Ticker(object):
             self.stamp = stamp.get_text().replace('  ',' ')
         else:
             self.stamp = "None"
-
 
     def __cleanName(self):
         if self.ticker[-1] != '.':

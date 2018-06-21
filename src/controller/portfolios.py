@@ -71,3 +71,11 @@ class Controller:
             self.portfolios[port].sort(key=lambda x: x.percent, reverse=asc)
 
         return self.portfolios[port]
+
+    def new_port(self, port):
+        self.portfolios[port] = []
+        self.data.save(self.portfolios)
+
+    def add_ticker(self, port, data):
+        self.portfolios[port].append(Ticker(data))
+        self.data.save(self.portfolios)

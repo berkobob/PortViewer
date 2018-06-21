@@ -1,5 +1,12 @@
-.mine p{
-    font-size: 30px;
-    text-align: center;
-    padding: 100px 100px 100px 100px;
+.mine a:link{
+    text-decoration: burlywood;
+    font-size: 20px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+th {
+    text-decoration: none;
 }
