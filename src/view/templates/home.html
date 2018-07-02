@@ -9,17 +9,24 @@
 {% endblock %}
 
 {% block main %}
-{% for each in ports %}
-    <li class="w3-ul">{{ each }}            </li>
+{% for port in ports %}
+    <ul class="w3-ul">
+        <div class="w3-container w3-panel">
+            <a class="w3-ul" onclick="return confirm('Delete {{port}} portfolio?')" href="/del/{{port}}"><i class="fa fa-trash"></i>
+            {{ port }} </a>
+        </div>
+    </ul>
 {% endfor%}
 
 
+<!-- Modals -->
 <div id="id02" class="w3-modal">
     <div class="w3-modal-content w3-card-4">
-        <header class="w3-container"> 
+        <header class="w3-container w3-blue"> 
             <h2>Create new portfolio</h2>
         </header>
         <form action="/" method="post" class="w3-container">
+            <br>
             <label>Name:</label>
             <input class="w3-input w3-border" type="text" id="name" name="name"> 
             <br>
@@ -27,6 +34,7 @@
                 <button class="w3-button w3-hover-green w3-round-large" type="submit" onclick="document.getElementById('id02').style.display='none'">Submit</button>
                 <button class="w3-button w3-hover-red w3-round-large" type="button" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
             </div>
+            <br>
         </form>
     </div>
 </div>

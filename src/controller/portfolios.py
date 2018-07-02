@@ -79,3 +79,7 @@ class Controller:
     def add_ticker(self, port, data):
         self.portfolios[port].append(Ticker(data))
         self.data.save(self.portfolios)
+
+    def del_ticker(self, port, ticker):
+        self.portfolios[port] = [x for x in self.portfolios[port] if x.to_dict()['ticker'] != ticker]
+        self.data.save(self.portfolios)

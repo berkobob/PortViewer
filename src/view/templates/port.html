@@ -19,23 +19,26 @@
             <th class="w3-right-align"><a style="text-decoration: none;" href="/delta/{{page}}">CHANGE</a></th>
             <th class="w3-right-align"><a style="text-decoration: none;" href="/percent/{{page}}">%</a></th>
             <th class="w3-right-align">TIME</th>
+            <th class="w3-center"><i class="fa"></i></th>
         </tr>
         {% for ticker in tickers %}
+            {% set stock = ticker.to_dict()['ticker'] %}
             <tr>
-                <td>{{ ticker.to_dict()['ticker'] }}</th>
+                <td>{{ stock }}</th>
                 <td class="w3-right-align">{{ ticker.to_dict()['shares'] }}</td>
                 <td class="w3-right-align">{{ ticker.to_dict()['price'] }}</td>
                 <td class="w3-right-align">{{ ticker.to_dict()['last'] }}</td>
                 <td class="w3-right-align">{{ ticker.to_dict()['delta'] }}</td>
                 <td class="w3-right-align">{{ ticker.to_dict()['percent'] }}</td>
                 <td class="w3-right-align">{{ ticker.to_dict()['stamp'] }}</td>
+                <td class="w3-center"><a onclick="return confirm('Delete {{ stock }}')" href="/del/{{page}}/{{ticker.name}}" ><i class="fa fa-trash"></i></a></td>
             </tr>
         {% endfor%}
     </table>
 
     <div id="id01" class="w3-modal">
             <div class="w3-modal-content w3-card-4">
-                <header class="w3-container"> 
+                <header class="w3-container w3-blue"> 
                     <h2>Add ticker to {{page}}</h2>
                 </header>
                 <form action="/add/{{page}}" method="post" class="w3-container">

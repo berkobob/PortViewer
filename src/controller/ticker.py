@@ -18,8 +18,6 @@ class Ticker(object):
         self.stamp = "NO DATA"
         self.symbol = '$'
         self.__cleanName()
-        self.symbol = '$'
-
 
     def to_dict(self):
         try:
@@ -38,6 +36,9 @@ class Ticker(object):
                 }
 
     def __repr__(self):
+        return self.name 
+
+    def __str__(self):
         return "{} {:>6} is at {}{:<10.2f} It's moved {: 7.2f} which is {: 5.2f}%. We have {:5d} shares at {: 6.2f} each {} {}".format(
             self.stamp, self.name, self.symbol, self.last, self.delta, self.percent, self.shares, self.price, self.ticker, self.exchange)
 

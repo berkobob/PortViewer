@@ -39,6 +39,16 @@ def add_ticker(port):
     controller.add_ticker(port, list(request.form.values()))
     return redirect('/'+port)
 
+@app.route('/del/<port>')
+def delete(port):
+    controller.delete(port)
+    return redirect('/')
+
+@app.route('/del/<port>/<ticker>')
+def del_ticker(port, ticker):
+    controller.del_ticker(port,ticker)
+    return redirect('/'+port)
+
 if __name__ == '__main__':
     import sys
     sys.path.append('c:\\Users\\aleve\\Documents\\src\\PortViewer\\src\\controller')
