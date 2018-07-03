@@ -1,6 +1,6 @@
 import argparse
-from controller.portfolios import Controller
 from model.data import Data
+from controller.portfolios import Controller
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
