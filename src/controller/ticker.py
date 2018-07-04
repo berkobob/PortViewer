@@ -44,8 +44,9 @@ class Ticker(object):
 
     def updatePrice(self):
         page = requests.get(constants.WWW+self.ticker)
+        print(constants.WWW+self.ticker)
         soup = BeautifulSoup(page.content, 'html.parser')
-        price = soup.find('span', class_="Trsdu(0.3s) Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(b)")
+        price = soup.find_all('span', class_="Trsdu(0.3s) Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(b)")
         try:
             last = price.get_text()
             last = last.replace(',','')
@@ -55,12 +56,14 @@ class Ticker(object):
         except:
             self.last = 0
 
-        delta = soup.find('span', class_="Fw(500)")
+        delta = soup.find('span', class_="Trsdu(0.3s) Fw(500) Fz(14px) C($dataRed)")
         try:
+            print(delta)
             a, b = delta.get_text().split(' ')
             self.delta = float(a)
             self.percent = float(b.replace('(','').replace(')','').replace('%',''))
-        except:
+        except Exception as e:
+            print(e)
             self.delta, self.percent = 0, 0
 
         stamp = soup.find('div', attrs={'id': 'quote-market-notice' })
@@ -73,7 +76,7 @@ class Ticker(object):
         if self.ticker[-1] != '.':
             if '.' in self.ticker:
                 self.ticker = self.ticker.replace('.','-')
-            self.ticker = self.ticker+"."
+            #self.ticker = self.ticker+"."
         
         if self.exchange == "LSE":
             self.ticker = self.ticker+"L"
