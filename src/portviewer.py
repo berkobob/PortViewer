@@ -2,7 +2,8 @@ import argparse
 from src.model.data import Data
 from src.controller.portfolios import Controller as application
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(
         description="View portfolio prices",
         epilog="Changes to come."
@@ -19,10 +20,10 @@ if __name__ == '__main__':
         if mode == 'd':
             print("Desktop mode not yet implemented")
         elif mode == 'w':
-            from view.app import startWebView
+            from src.view.app import startWebView
             startWebView(application(Data()))
         elif mode == 'c':
-            from view.commandline import View
+            from src.view.commandline import View
             View(application(Data()))
         else:
             print("The valid modes are Command line (c), Web (w) or Desktop (d)")
@@ -30,4 +31,5 @@ if __name__ == '__main__':
     if args.square:
         print(args.square**2)
 
-
+if __name__ == '__main__':
+    main()

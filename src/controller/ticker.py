@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import controller.constants as constants
+import src.controller.constants as constants
 import re
 
 class Ticker(object):
