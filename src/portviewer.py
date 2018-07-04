@@ -1,6 +1,6 @@
 import argparse
 from src.model.data import Data
-from src.controller.portfolios import Controller as application
+from src.controller.portfolios import Controller
 
 #if __name__ == '__main__':
 def main():
@@ -21,10 +21,10 @@ def main():
             print("Desktop mode not yet implemented")
         elif mode == 'w':
             from src.view.app import startWebView
-            startWebView(application(Data()))
+            startWebView(Controller(Data()))
         elif mode == 'c':
             from src.view.commandline import View
-            View(application(Data()))
+            View(Controller(Data()))
         else:
             print("The valid modes are Command line (c), Web (w) or Desktop (d)")
 
