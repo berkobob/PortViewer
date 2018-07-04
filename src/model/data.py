@@ -9,12 +9,7 @@ class Data:
         pass
 
     def save(self, data):
-        with open('data.dat', 'wb') as file:
-            pickle.dump(data, file) 
+        pass
 
     def load(self):
-        try:
-            with open('data.dat', 'rb') as file:
-                return pickle.load(file)
-        except Exception as e:
-            return {}
+        return {}
