@@ -13,7 +13,7 @@ ascending = True
 def startWebView(new_controller):
     global controller
     controller = new_controller
-    app.run('0.0.0.0')
+    app.run('0.0.0.0', port=80, debug=True)
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
