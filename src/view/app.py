@@ -2,10 +2,12 @@ import os
 from src.view.decorators import requires_login
 from flask import Flask, render_template, request,url_for, redirect, session
 from passlib.hash import pbkdf2_sha512
+from src.controller.portfolios import Controller
+from src.model.data import Data
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-contoller = None
+controller = Controller(Data())
 ascending = True
 
 def startWebView(new_controller):
@@ -76,3 +78,6 @@ def delete(port):
 def del_ticker(port, ticker):
     controller.del_ticker(port,ticker)
     return redirect('/'+port)
+
+if __name__ == '__main__':
+    app.run()
