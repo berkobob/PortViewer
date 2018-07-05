@@ -1,12 +1,13 @@
 import os
 from src.view.decorators import requires_login
-from flask import Flask, render_template, request,url_for, redirect, session
+from flask import Flask, render_template, request,url_for, redirect, session, flash
 from passlib.hash import pbkdf2_sha512
 from src.controller.portfolios import Controller
 from src.model.data import Data
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+#app.secret_key = os.urandom(24)
+app.secret_key = "123"
 controller = Controller(Data())
 ascending = True
 
@@ -32,6 +33,16 @@ def home():
     if request.method == "POST":
         controller.new_port(request.form['name'])
     return render_template('home.html', ports=controller.port_names())
+
+@app.route('/load/', methods=['POST'])
+def load():
+    if request.method == 'POST':
+        print(request.form['name'])
+        f=request.files['file']
+        print(f.filename)
+        f.save(f.filename)
+        controller.load_portfolio(request.form['name'], f.filename)
+    return redirect('/')
 
 @app.route('/<port>/', methods=['GET', 'POST'])
 @requires_login

@@ -10,13 +10,13 @@ class Controller:
         self.data = data
         self.portfolios = self.data.load()
 
-    def load_portfolio(self, port):
+    def load_portfolio(self, port, filetoload):
 
         self.portfolios[port] = []
 
-        path = constants.DATAPATH+port+'.csv'
+        #path = constants.DATAPATH+port+'.csv'
         try:
-            with open(path) as file:
+            with open(filetoload) as file:
                 file.readline()
                 row=file.readline().rstrip('\n').split(',')
 

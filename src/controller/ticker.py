@@ -49,7 +49,8 @@ class Ticker(object):
         price = soup.find_all('span', class_="Trsdu(0.3s)")
 
         if price:
-            self.last = float(price[0].get_text())
+            self.last = price[0].get_text().replace(',','')
+            self.last = float(self.last)
             if self.exchange == 'LSE':
                 self.last /= 100
             delta, percent = price[1].get_text().split(' ')
@@ -91,7 +92,8 @@ class Ticker(object):
         if self.ticker[-1] != '.':
             if '.' in self.ticker:
                 self.ticker = self.ticker.replace('.','-')
-            #self.ticker = self.ticker+"."
+            if self.exchange == 'LSE':
+                self.ticker = self.ticker+"."
         
         if self.exchange == "LSE":
             self.ticker = self.ticker+"L"
