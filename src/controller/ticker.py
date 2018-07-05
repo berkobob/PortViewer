@@ -46,9 +46,23 @@ class Ticker(object):
         page = requests.get(constants.WWW+self.ticker)
         print(constants.WWW+self.ticker)
         soup = BeautifulSoup(page.content, 'html.parser')
-        price = soup.find_all('span', class_="Trsdu(0.3s) Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(b)")
+        price = soup.find_all('span', class_="Trsdu(0.3s)")
+
+        if price:
+            self.last = float(price[0].get_text())
+            if self.exchange == 'LSE':
+                self.last /= 100
+            delta, percent = price[1].get_text().split(' ')
+            self.delta = float(delta)
+            self.percent = float(percent.replace('(','').replace(')','').replace('%',''))
+
+    def old_updatePrice(self):
+        page = requests.get(constants.WWW+self.ticker)
+        print(constants.WWW+self.ticker)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        price = soup.find_all('span', class_="Trsdu(0.3s)")
         try:
-            last = price.get_text()
+            last = price[0].get_text()
             last = last.replace(',','')
             self.last = float(last)
             if self.exchange == "LSE":
@@ -56,7 +70,8 @@ class Ticker(object):
         except:
             self.last = 0
 
-        delta = soup.find('span', class_="Trsdu(0.3s) Fw(500) Fz(14px) C($dataRed)")
+        #delta = soup.find('span', class_="Trsdu(0.3s) Fw(500) Fz(14px) C($dataRed)")
+        delta = price[1]
         try:
             print(delta)
             a, b = delta.get_text().split(' ')
