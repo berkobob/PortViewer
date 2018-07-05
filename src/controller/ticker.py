@@ -57,6 +57,12 @@ class Ticker(object):
             self.delta = float(delta)
             self.percent = float(percent.replace('(','').replace(')','').replace('%',''))
 
+        stamp = soup.find('div', attrs={'id': 'quote-market-notice' })
+        if stamp:
+            self.stamp = stamp.get_text().replace('  ',' ')
+        else:
+            self.stamp = "None"
+
     def old_updatePrice(self):
         page = requests.get(constants.WWW+self.ticker)
         print(constants.WWW+self.ticker)

@@ -6,8 +6,8 @@ from src.controller.portfolios import Controller
 from src.model.data import Data
 
 app = Flask(__name__)
-#app.secret_key = os.urandom(24)
-app.secret_key = "123"
+app.secret_key = os.urandom(24)
+#app.secret_key = "123"
 controller = Controller(Data())
 ascending = True
 
